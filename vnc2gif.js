@@ -39,8 +39,18 @@ function handleConnection(req, res, next) {
 		ctx = canvas.getContext('2d');
 		gif.createReadStream().pipe(res);
 		console.log('connect')
+		req.connection.on('end', function() {
+			r.end();
+			r = null;
+		})
+		r.stream.on('end', function() {
+			gif.finish();
+			res.end();
+		})
 	})
 	.on('rect', function(rect) {
+		if(r == null)
+			return;
 		var imgData = ctx.createImageData(rect.width, rect.height);
 		for(var i = 0; i < rect.data.length; i++) {
 			imgData.data[i] = rect.data[i];
@@ -49,7 +59,7 @@ function handleConnection(req, res, next) {
 		ctx.putImageData(imgData, rect.x, rect.y);
 		gif.addFrame(ctx);
 		r.requestUpdate(false, 0, 0, r.width, r.height);
-	})
+	});
 }
 
 var app = connect()
