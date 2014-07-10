@@ -3,6 +3,8 @@ vnc2gif
 
 A simple VNC viewer
 
+![recording](https://raw.githubusercontent.com/Gottox/vnc2gif/master/recording.gif)
+
 ## how to try?
 
 ```
