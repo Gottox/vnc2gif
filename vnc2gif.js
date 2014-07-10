@@ -53,8 +53,19 @@ function handleConnection(req, res, next) {
 			return;
 		var imgData = ctx.createImageData(rect.width, rect.height);
 		for(var i = 0; i < rect.data.length; i++) {
-			imgData.data[i] = rect.data[i];
+			switch(i % 4) {
+				case 0:
+					imgData.data[i] = rect.data[i+2];
+					break;
+				case 2:
+					imgData.data[i] = rect.data[i-2];
+					break;
+				default:
+					imgData.data[i] = rect.data[i];
+					break;
+			}
 		}
+		console.log(rect);
 		console.log('rect');
 		ctx.putImageData(imgData, rect.x, rect.y);
 		gif.addFrame(ctx);
