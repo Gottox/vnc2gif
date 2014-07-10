@@ -13,7 +13,7 @@ npm install
 node vnc2gif.js
 ```
 
-Then point your browser to http://127.0.0.1:3000/?
+Then point your browser to http://127.0.0.1:3000/
 
 You can use the following query parameters:
 
